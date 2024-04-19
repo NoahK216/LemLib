@@ -164,14 +164,9 @@ class Chassis {
          */
         void follow(const char* filePath, int timeout, float lookahead, bool reverse = false, float maxSpeed = 127,
                     bool log = false);
-        /**
-         * controller settings are exposed so that they can be changed by advanced users
-         * Note: any changes won't be immediate, it will only have an affect when the next
-         * movement function is called.
-         */
-        ChassisController_t lateralSettings; /** lateral PID controller settings */
-        ChassisController_t angularSettings; /** angular PID controller settings */
     private:
+        ChassisController_t lateralSettings;
+        ChassisController_t angularSettings;
         Drivetrain_t drivetrain;
         OdomSensors_t odomSensors;
 };
