@@ -182,6 +182,25 @@ void lemlib::update() {
     odomLocalSpeed.theta = ema(deltaHeading / 0.01, odomLocalSpeed.theta, 0.95);
 }
 
+void lemlib::updateOTOS() {
+    // TODO: add particle filter
+
+    // Get odom state from SparkFun OTOS
+
+    // save previous pose
+    lemlib::Pose prevPose = odomPose;
+
+    // calculate speed
+    odomSpeed.x = ema((odomPose.x - prevPose.x) / 0.01, odomSpeed.x, 0.95);
+    odomSpeed.y = ema((odomPose.y - prevPose.y) / 0.01, odomSpeed.y, 0.95);
+    odomSpeed.theta = ema((odomPose.theta - prevPose.theta) / 0.01, odomSpeed.theta, 0.95);
+
+    // calculate local speed
+    // odomLocalSpeed.x = ema(localX / 0.01, odomLocalSpeed.x, 0.95);
+    // odomLocalSpeed.y = ema(localY / 0.01, odomLocalSpeed.y, 0.95);
+    // odomLocalSpeed.theta = ema(deltaHeading / 0.01, odomLocalSpeed.theta, 0.95);
+}
+
 void lemlib::init() {
     if (trackingTask == nullptr) {
         trackingTask = new pros::Task {[=] {

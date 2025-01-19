@@ -53,6 +53,11 @@ Pose estimatePose(float time, bool radians = false);
  */
 void update();
 /**
+ * @brief Update the pose of the robot using the OTOS sensor
+ *
+ */
+void updateOTOS();
+/**
  * @brief Initialize the odometry system
  *
  */
