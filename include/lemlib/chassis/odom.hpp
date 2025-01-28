@@ -52,9 +52,18 @@ Pose estimatePose(float time, bool radians = false);
  *
  */
 void update();
+
 /**
+<<<<<<< HEAD
+=======
+ * @brief Update the pose of the robot using the OTOS sensor
+ *
+ */
+void update(Pose (*getPoseFunc)());
+/**
+>>>>>>> 77ce6fe82ad201645c060bee465db581035a46d4
  * @brief Initialize the odometry system
  *
  */
-void init();
+void init(bool useOTOS = false, Pose (*getPoseFunc)() = nullptr);
 } // namespace lemlib
