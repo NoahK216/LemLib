@@ -182,47 +182,13 @@ void lemlib::update() {
     odomLocalSpeed.theta = ema(deltaHeading / 0.01, odomLocalSpeed.theta, 0.95);
 }
 
-<<<<<<< HEAD
 void lemlib::init() {
-=======
-void lemlib::update(Pose (*getPoseFunc)()) {
-    // TODO: add particle filter
-    if (!getPoseFunc) { return; }
-
-    // save previous pose
-    Pose prevPose = odomPose;
-
-    // Get odom state from serial
-    odomPose = getPoseFunc();
-
-    // calculate speed
-    odomSpeed.x = ema((odomPose.x - prevPose.x) / 0.01, odomSpeed.x, 0.95);
-    odomSpeed.y = ema((odomPose.y - prevPose.y) / 0.01, odomSpeed.y, 0.95);
-    odomSpeed.theta = ema((odomPose.theta - prevPose.theta) / 0.01, odomSpeed.theta, 0.95);
-
-    // TODO any benefit to this?
-    // calculate local speed
-    // odomLocalSpeed.x = ema(localX / 0.01, odomLocalSpeed.x, 0.95);
-    // odomLocalSpeed.y = ema(localY / 0.01, odomLocalSpeed.y, 0.95);
-    // odomLocalSpeed.theta = ema(deltaHeading / 0.01, odomLocalSpeed.theta, 0.95);
-}
-
-void lemlib::init(bool useOTOS, Pose (*getPoseFunc)()) {
->>>>>>> 77ce6fe82ad201645c060bee465db581035a46d4
     if (trackingTask == nullptr) {
-        if (useOTOS) {
-            trackingTask = new pros::Task {[=] {
-                while (true) {
-                    update(getPoseFunc);
-                    pros::delay(10);
-                }
-            }};
-        } else
-            trackingTask = new pros::Task {[=] {
-                while (true) {
-                    update();
-                    pros::delay(10);
-                }
-            }};
+        trackingTask = new pros::Task {[=] {
+            while (true) {
+                update();
+                pros::delay(10);
+            }
+        }};
     }
 }
